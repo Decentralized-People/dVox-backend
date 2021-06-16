@@ -7,7 +7,7 @@ contract TodoList {
     struct Task {
         uint id;
         string content;
-        bool completed; 
+        bool completed;
     }
 
     mapping(uint => Task) public tasks;
