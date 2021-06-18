@@ -7,20 +7,26 @@ contract PostContract {
 
     struct Post {
         uint id;
+        string author;
         string message;
-        uint upvotes;
-        uint downvotes;
+        int votes;
         bool ban;
     }
 
     mapping(uint => Post) public posts;
 
     constructor() public {
-        createPost("Hello World. This is our first post.");
+        createPost("Creator", "Hello World. This is our first post.");
     }
  
-    function createPost(string memory _content) public {
+    function createPost(string memory _author, string memory _content) public {
         postCount ++;
-        posts[postCount] =  Post(postCount, _content, 0, 0, false);
+        posts[postCount] =  Post(postCount, _author, _content, 0, false);
+    }
+    
+    function addVote(uint id, int i) public{
+        posts[id].votes = posts[id].votes + i;
+        if (posts[id].votes <= -10)
+            posts[id].ban = true;
     }
 }
