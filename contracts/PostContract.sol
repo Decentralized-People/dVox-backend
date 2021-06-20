@@ -25,8 +25,10 @@ contract PostContract {
     }
     
     function addVote(uint id, int i) public{
-        posts[id].votes = posts[id].votes + i;
-        if (posts[id].votes <= -10)
-            posts[id].ban = true;
+        if (i == 1 || i == -1){
+            posts[id].votes = posts[id].votes + i;
+            if (posts[id].votes <= -10)
+                posts[id].ban = true;
+        }
     }
 }
