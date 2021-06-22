@@ -1,3 +1,3 @@
 # projectDIES-backend
 
-<img src="#readme/diagram.png" alt="ProjectDIES, diagram">
+<img src="%23readme/diagram.png" alt="ProjectDIES, diagram">
