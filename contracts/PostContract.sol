@@ -7,6 +7,7 @@ contract PostContract {
 
     struct Post {
         uint id;
+        string title;
         string author;
         string message;
         int votes;
@@ -16,12 +17,12 @@ contract PostContract {
     mapping(uint => Post) public posts;
 
     constructor() public {
-        createPost("Creator", "Hello World. This is our first post.");
+        createPost("Welcome message","Creator", "Hello World. This is our first post.");
     }
  
-    function createPost(string memory _author, string memory _content) public {
+    function createPost(string memory _title, string memory _author, string memory _content) public {
         postCount ++;
-        posts[postCount] =  Post(postCount, _author, _content, 0, false);
+        posts[postCount] =  Post(postCount, _title, _author, _content, 0, false);
     }
     
     function addVote(uint id, int i) public{
