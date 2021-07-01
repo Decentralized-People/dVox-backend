@@ -10,6 +10,7 @@ contract PostContract {
         string title;
         string author;
         string message;
+        string hashtag;
         int votes;
         bool ban;
     }
@@ -17,12 +18,12 @@ contract PostContract {
     mapping(uint => Post) public posts;
 
     constructor() public {
-        createPost("Welcome message","Creator", "Hello World. This is our first post.");
+        createPost("Welcome message","Creator", "Hello World. This is our first post.", "hashtagtest");
     }
  
-    function createPost(string memory _title, string memory _author, string memory _content) public {
+    function createPost(string memory _title, string memory _author, string memory _content, string memory _hashtag) public {
         postCount ++;
-        posts[postCount] =  Post(postCount, _title, _author, _content, 0, false);
+        posts[postCount] =  Post(postCount, _title, _author, _content, _hashtag, 0, false);
     }
     
     function addVote(uint id, int i) public{
