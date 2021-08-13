@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
 contract PostContract {
+    uint public commentCount2 = 0; 
 
     uint public postCount = 0; 
     
@@ -21,21 +22,20 @@ contract PostContract {
         int downVotes;
         uint commentCount;
         bool ban;
-        
-        mapping(uint => Comment) comments;
+        mapping (uint => Comment) comments;
     }
 
     mapping(uint => Post) public posts;
 
-    constructor() public {
-        createPost("Welcome message","Creator", "Hello World. This is our first post.", "hashtagtest");
+    constructor() {
+        createPost("Welcome message","Creator", "Hello World!! This is our first post.", "hashtagtest");
         addComment(1, "Aleksandr", "Hello, this is the first comment!");
     }
  
+
     function createPost(string memory _title, string memory _author, string memory _message, string memory _hashtag) public {
         postCount ++;
         Post storage post = posts[postCount];
-
         post.id = postCount;
         post.title = _title;
         post.author = _author;
@@ -46,7 +46,7 @@ contract PostContract {
         post.commentCount = 0;
         post.ban = false;
     }
-    
+
     function upVote(uint id, int i) public{
         if (i == 1){
             posts[id].upVotes = posts[id].upVotes + i;
@@ -59,13 +59,16 @@ contract PostContract {
         }
     }
 
-    function addComment(uint _commentID, string memory _comment_author, string memory _comment_message) public{
-        Post storage post = posts[_commentID];
+    function addComment(uint _postID, string memory _comment_author, string memory _comment_message) public {
+        Post storage post = posts[_postID];
         post.commentCount++;
-
-        Comment storage comment = post.comments[post.commentCount];
-        comment.commentID = post.commentCount;
-        comment.commentAuthor = _comment_author;
-        comment.commentMessage = _comment_message;
+        post.comments[post.commentCount] = Comment({commentID: post.commentCount, commentAuthor:_comment_author, commentMessage: _comment_message});
+    }
+    
+    function getComment(uint postID, uint commentID) public view returns(uint id, string memory author, string memory message) {
+        id = posts[postID].comments[commentID].commentID;
+        author = posts[postID].comments[commentID].commentAuthor;
+        message = posts[postID].comments[commentID].commentMessage;
+        return (id, author, message);
     }
 }
