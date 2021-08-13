@@ -11,26 +11,46 @@ contract PostContract {
         string author;
         string message;
         string hashtag;
-        int votes;
+        int upVotes;
+        int downVotes;
+        Comment[] comments;
+        uint commentCount;
         bool ban;
     }
 
+    struct Comment {
+        uint commentID;
+        string commentAuthor;
+        string commentMessage;
+    }
+
     mapping(uint => Post) public posts;
+
 
     constructor() public {
         createPost("Welcome message","Creator", "Hello World. This is our first post.", "hashtagtest");
     }
  
-    function createPost(string memory _title, string memory _author, string memory _content, string memory _hashtag) public {
+    function createPost(string memory _title, string memory _author, string memory _message, string memory _hashtag) public {
         postCount ++;
-        posts[postCount] =  Post(postCount, _title, _author, _content, _hashtag, 0, false);
+        posts[postCount] = Post(postCount, _title, _author, _message, _hashtag, 0, 0, new Comment[](7), 0, false);
     }
     
-    function addVote(uint id, int i) public{
-        if (i == 1 || i == -1){
-            posts[id].votes = posts[id].votes + i;
-            if (posts[id].votes <= -10)
-                posts[id].ban = true;
+    function upVote(uint id, int i) public{
+        if (i == 1){
+            posts[id].upVotes = posts[id].upVotes + i;
         }
+    }
+
+    function downVote(uint id, int i) public{
+        if (i == -1){
+            posts[id].downVotes = posts[id].downVotes + i;
+        }
+    }
+
+    function addComment(uint _commentID, string memory _comment_author, string memory _comment_message) public{
+        Post memory post = posts[_commentID];
+        post.commentCount++;
+        post.comments[post.commentCount] = Comment(post.commentCount, _comment_author, _comment_message);
     }
 }

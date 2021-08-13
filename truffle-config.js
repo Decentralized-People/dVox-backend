@@ -97,9 +97,9 @@
 //     }
 //   }
 // }
-const HDWalletProvider = require("truffle-hdwallet-provider");
+//const HDWalletProvider = require("truffle-hdwallet-provider");
 
-require('dotenv').config() 
+//require('dotenv').config()
 
 module.exports = {
   networks: {
@@ -109,10 +109,10 @@ module.exports = {
       network_id: "*" // Match any network id
     },
       // main ethereum network(mainnet)
-    main: {
-      provider: () => new HDWalletProvider(process.env.MNENOMIC, "https://mainnet.infura.io/v3/" + process.env.INFURA_API_KEY),
-      network_id: 1,
-  }
+    //main: {
+    //  provider: () => new HDWalletProvider(process.env.MNENOMIC, "https://mainnet.infura.io/v3/" + process.env.INFURA_API_KEY),
+    //  network_id: 1,
+  //}
   },
   solc: {
     optimizer: {
