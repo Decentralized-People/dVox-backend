@@ -2,7 +2,6 @@
 pragma solidity ^0.8.7;
 
 contract PostContract {
-    uint public commentCount2 = 0; 
 
     uint public postCount = 0; 
     
@@ -32,7 +31,6 @@ contract PostContract {
         addComment(1, "Aleksandr", "Hello, this is the first comment!");
     }
  
-
     function createPost(string memory _title, string memory _author, string memory _message, string memory _hashtag) public {
         postCount ++;
         Post storage post = posts[postCount];
@@ -65,10 +63,8 @@ contract PostContract {
         post.comments[post.commentCount] = Comment({commentID: post.commentCount, commentAuthor:_comment_author, commentMessage: _comment_message});
     }
     
-    function getComment(uint postID, uint commentID) public view returns(uint id, string memory author, string memory message) {
-        id = posts[postID].comments[commentID].commentID;
-        author = posts[postID].comments[commentID].commentAuthor;
-        message = posts[postID].comments[commentID].commentMessage;
-        return (id, author, message);
+    function getComment(uint postID, uint commentID) public view returns(Comment memory comment) {
+        comment = posts[postID].comments[commentID];
+        return comment;
     }
 }
