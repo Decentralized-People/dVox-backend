@@ -17,8 +17,8 @@ contract PostContract {
         string author;
         string message;
         string hashtag;
-        int upVotes;
-        int downVotes;
+        uint upVotes;
+        uint downVotes;
         uint commentCount;
         bool ban;
         mapping (uint => Comment) comments;
@@ -45,16 +45,12 @@ contract PostContract {
         post.ban = false;
     }
 
-    function upVote(uint id, int i) public{
-        if (i == 1){
-            posts[id].upVotes = posts[id].upVotes + i;
-        }
+    function upVote(uint id) public{
+        posts[id].upVotes = posts[id].upVotes + 1;
     }
 
-    function downVote(uint id, int i) public{
-        if (i == -1){
-            posts[id].downVotes = posts[id].downVotes + i;
-        }
+    function downVote(uint id) public{
+        posts[id].downVotes = posts[id].downVotes + 1;
     }
 
     function addComment(uint _postID, string memory _comment_author, string memory _comment_message) public {
