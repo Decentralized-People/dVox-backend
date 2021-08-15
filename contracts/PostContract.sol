@@ -9,6 +9,7 @@ contract PostContract {
         uint commentID;
         string commentAuthor;
         string commentMessage;
+        bool commentBan;
     }
 
     struct Post {
@@ -56,11 +57,23 @@ contract PostContract {
     function addComment(uint _postID, string memory _comment_author, string memory _comment_message) public {
         Post storage post = posts[_postID];
         post.commentCount++;
-        post.comments[post.commentCount] = Comment({commentID: post.commentCount, commentAuthor:_comment_author, commentMessage: _comment_message});
+        post.comments[post.commentCount] = Comment({commentID: post.commentCount, commentAuthor:_comment_author, commentMessage: _comment_message, commentBan: false});
     }
     
-    function getComment(uint postID, uint commentID) public view returns(Comment memory comment) {
-        comment = posts[postID].comments[commentID];
-        return comment;
+    function getComment(uint postID, uint commentID) public view returns(uint id, string memory author, string memory message, bool ban) {
+        Comment storage comment = posts[postID].comments[commentID];
+        id = comment.commentID;
+        author = comment.commentAuthor;
+        message = comment.commentMessage;
+        ban = comment.commentBan;
+        return (id, author, message, ban);
+    }
+
+    function banPost(uint postID) public {
+        posts[postID].ban = !posts[postID].ban;
+    }
+
+    function banComment(uint postID, uint commentID) public {
+        posts[postID].comments[commentID].commentBan = !posts[postID].comments[commentID].commentBan;
     }
 }
