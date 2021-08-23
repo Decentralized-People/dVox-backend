@@ -9,11 +9,20 @@ module.exports = {
     //   port: 7545,
     //   network_id: "*" // Match any network id
     // },
-      // main ethereum network(mainnet)
-     main: {
-       provider: () => new HDWalletProvider(process.env.MNENOMIC, "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY),
-       network_id: 4,
+      //  ethereum network()
+    rinkeby: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: {
+            phrase: process.env.MNENOMIC
+          },
+          providerOrUrl: "https://rinkeby.infura.io/v3/" + process.env.INFURA_API_KEY,
+          numberOfAddresses: 1,
+          shareNonce: true,
+        }),
+      network_id: '4',
     }
+    
   },
   solc: {
     optimizer: {
