@@ -1,1 +1,0 @@
-web3j generate truffle --truffle-json="/Users/amolchagin/Desktop/Projects/dVox-backend/build/contracts/PostContract.json" -o /Users/amolchagin/Desktop/Projects/dVox-backend/wrapers/ -p com.dpearth.dvox
