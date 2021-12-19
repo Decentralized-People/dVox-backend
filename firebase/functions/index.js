@@ -12,29 +12,36 @@ admin.initializeApp(functions.config().firebase);
 //   response.send("Hello from Firebase!");
 // });
 
+exports.topic_PublicLocation = functions.firestore.document("Notifications/PublicLocation").onWrite(async (event) => {
+  // let docID = event.after.id
+  const title = event.after.get("title");
+  const content = event.after.get("content");
 
-subscribeLocation("Public");
-subscribeLocation("KalamazooCollege");
+  const message = {
+    notification: {
+      title: title,
+      body: content
+    },
+    topic: "PublicLocation",
+  };
 
-function subscribeLocation(location) {
+  const response = await admin.messaging().send(message);
+  console.log(response);
+});
 
-    const fullLocation = "Notifications/" + location;
+exports.topic_KalamazooCollege = functions.firestore.document("Notifications/KalamazooCollege").onWrite(async (event) => {
+  // let docID = event.after.id
+  const title = event.after.get("title");
+  const content = event.after.get("content");
 
-    exports.sendNotificationTopic = functions.firestore.document(fullLocation).onWrite(async (event) => {
-        // let docID = event.after.id
-        const title = event.after.get("title");
-        const content = event.after.get("content");
-      
-        const message = {
-          notification: {
-            title: title,
-            body: content
-          },
-          topic: location,
-        };
-      
-        const response = await admin.messaging().send(message);
-        console.log(response);
-      });
-}
+  const message = {
+    notification: {
+      title: title,
+      body: content
+    },
+    topic: "KalamazooCollege",
+  };
 
+  const response = await admin.messaging().send(message);
+  console.log(response);
+});
