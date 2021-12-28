@@ -32,7 +32,7 @@ contract PostContract {
     mapping(uint => Post) public posts;
 
     constructor() {
-        createPost("Welcome message","Creator", "Welcome to dVox! This is the safe space where you can share your thoughts anonymously. Please be nice and have as much fun as you can!", "#welcome");
+        createPost("Welcome message", "Creator", "Welcome to the public server of dVox! This is the safe space where you can share your thoughts anonymously. If you are looking for your school server, please check the settings tab. Be nice and have as much fun as you can!", "#welcome");
         //addComment(1, "Aleksandr", "Hello, this is the first comment!");
     }
 

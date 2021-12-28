@@ -25,8 +25,11 @@ exports.topic_PublicLocation = functions.firestore.document("Notifications/Publi
     topic: "PublicLocation",
   };
 
-  const response = await admin.messaging().send(message);
-  console.log(response);
+  setTimeout(async() => {
+    const response = await admin.messaging().send(message)
+    console.log(response);
+  } , 10000)
+
 });
 
 exports.topic_KalamazooCollege = functions.firestore.document("Notifications/KalamazooCollege").onWrite(async (event) => {
@@ -42,6 +45,9 @@ exports.topic_KalamazooCollege = functions.firestore.document("Notifications/Kal
     topic: "KalamazooCollege",
   };
 
-  const response = await admin.messaging().send(message);
-  console.log(response);
+  setTimeout(async() => {
+    const response = await admin.messaging().send(message)
+    console.log(response);
+  } , 10000)
+  
 });
